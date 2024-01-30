@@ -59,7 +59,7 @@ namespace COMP2139_Labs.Controllers
 
     [HttpPost]
     [ValidateAntiForgeryToken]
-    public IActionResult Edit(int id, [Bind("ProjectId, Name, Description")] Project project)
+    public IActionResult Edit(int id, [Bind("ProjectId, Name, Description, StartDate, EndDate, Status")] Project project)
     {
       if (id != project.ProjectId)
       {
