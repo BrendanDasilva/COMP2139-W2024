@@ -24,6 +24,8 @@ namespace COMP2139_Labs.Models
 
         public string? Status { get; set; }
 
+        public List<ProjectTask>? Tasks { get; set; }
+
     }
 
 

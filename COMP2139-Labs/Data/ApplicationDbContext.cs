@@ -12,7 +12,8 @@ namespace COMP2139_Labs.Data
         }
 
         public DbSet<Project> Projects { get; set; }
-        // Add DbSet for other entities like Tasks in the future
+        
+        public DbSet<ProjectTask> ProjectTasks { get; set; }
     }
 
 }
