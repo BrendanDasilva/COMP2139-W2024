@@ -78,6 +78,39 @@ namespace COMP2139_Labs.Controllers
       return View(task);
     }
 
+    [HttpPost]
+    [ValidateAntiForgeryToken]
+    public IActionResult Edit(int id, [Bind("ProjectTaskId,Title,Description,ProjectId")] ProjectTask task)
+    {
+      if (id != task.ProjectTaskId)
+      {
+        return NotFound();
+      }
+
+      if (ModelState.IsValid)
+      {
+        try
+        {
+          _db.Update(task);
+          _db.SaveChanges();
+          return RedirectToAction(nameof(Index), new { projectId = task.ProjectId });
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+          if (!_db.ProjectTasks.Any(e => e.ProjectTaskId == task.ProjectTaskId))
+          {
+            return NotFound();
+          }
+          else
+          {
+            throw;
+          }
+        }
+      }
+      ViewBag.Projects = new SelectList(_db.Projects, "ProjectId", "Name", task.ProjectId);
+      return View(task);
+    }
+
     [HttpGet]
     public IActionResult Delete(int id)
     {
@@ -89,7 +122,7 @@ namespace COMP2139_Labs.Controllers
       return View(task);
     }
 
-    [HttpPost, ActionName("Delete Confirmed")]
+    [HttpPost, ActionName("DeleteConfirmed")]
     [ValidateAntiForgeryToken]
     public IActionResult DeleteConfirmed(int ProjectTaskId)
     {
