@@ -7,6 +7,7 @@ using Microsoft.CodeAnalysis;
 
 namespace COMP2139_Labs.Controllers
 {
+  [Route("Tasks")]
   public class TasksController : Controller
   {
     private readonly ApplicationDbContext _db;
@@ -16,7 +17,7 @@ namespace COMP2139_Labs.Controllers
       _db = context;
     }
 
-    [HttpGet]
+    [HttpGet("Index/{projectId:int}")]
     public IActionResult Index(int projectId)
     {
       var tasks = _db.ProjectTasks.Where(t => t.ProjectId == projectId).ToList();
@@ -24,7 +25,7 @@ namespace COMP2139_Labs.Controllers
       return View(tasks);
     }
 
-    [HttpGet]
+    [HttpGet("Details/{id:int}")]
     public IActionResult Details(int id)
     {
       var task = _db.ProjectTasks.Include(t => t.Project).FirstOrDefault(t => t.ProjectTaskId == id);
@@ -35,6 +36,7 @@ namespace COMP2139_Labs.Controllers
       return View(task);
     }
 
+    [HttpGet("Create/{projectId:int}")]
     public IActionResult Create(int projectId)
     {
       var project = _db.Projects.Find(projectId);
@@ -51,7 +53,7 @@ namespace COMP2139_Labs.Controllers
       return View(task);
     }
 
-    [HttpPost]
+    [HttpPost("Create/{projectId:int}")]
     [ValidateAntiForgeryToken]
     public IActionResult Create([Bind("Title", "Description", "ProjectId")] ProjectTask task)
     {
@@ -66,6 +68,7 @@ namespace COMP2139_Labs.Controllers
       return View(task);
     }
 
+    [HttpGet("Edit/{id:int}")]
     public IActionResult Edit(int id) 
     {
       var task = _db.ProjectTasks.Include(t => t.Project).FirstOrDefault(t => t.ProjectTaskId == id);
@@ -78,7 +81,7 @@ namespace COMP2139_Labs.Controllers
       return View(task);
     }
 
-    [HttpPost]
+    [HttpPost("Edit/{id:int}")]
     [ValidateAntiForgeryToken]
     public IActionResult Edit(int id, [Bind("ProjectTaskId,Title,Description,ProjectId")] ProjectTask task)
     {
@@ -111,7 +114,7 @@ namespace COMP2139_Labs.Controllers
       return View(task);
     }
 
-    [HttpGet]
+    [HttpGet("Delete/{id:int}")]
     public IActionResult Delete(int id)
     {
       var task = _db.ProjectTasks.Include(t => t.Project).FirstOrDefault(t => t.ProjectTaskId == id);
@@ -122,7 +125,7 @@ namespace COMP2139_Labs.Controllers
       return View(task);
     }
 
-    [HttpPost, ActionName("DeleteConfirmed")]
+    [HttpPost("DeleteConfirmed/{id:int}")]
     [ValidateAntiForgeryToken]
     public IActionResult DeleteConfirmed(int ProjectTaskId)
     {
@@ -134,6 +137,23 @@ namespace COMP2139_Labs.Controllers
         return RedirectToAction(nameof(Index), new { projectId = task.ProjectId });
       }
       return NotFound();
+    }
+
+    // Lab 5 - Search ProjectTasks
+    [HttpGet("Search/{projectId:int}/{serchString?}")]
+    public async Task <IActionResult> Search(int projectId, string searchString)
+    {
+      var tasksQuery = _db.ProjectTasks.AsQueryable();
+
+      if (!String.IsNullOrEmpty(searchString))
+      {
+        tasksQuery = tasksQuery.Where(t => t.Title.Contains(searchString) 
+        || t.Description.Contains(searchString));
+      }
+
+      var tasks = await tasksQuery.ToListAsync();
+      ViewBag.ProjectId = projectId; // To keep track of the current project
+      return View("Index", tasks); // Reuse the Index view to display results
     }
   }
 }

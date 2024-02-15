@@ -13,10 +13,18 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment())
+if (!app.Environment.IsDevelopment()) // removed ! to see user environment
 {
-    app.UseExceptionHandler("/Home/Error");
+  app.UseExceptionHandler("/Home/Error");
+  app.UseStatusCodePagesWithRedirects("/Home/NotFound?statusCode={0}");
+  app.UseHsts();
+} 
+else
+{
+  app.UseDeveloperExceptionPage();
 }
+
+app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
