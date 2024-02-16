@@ -33,13 +33,13 @@ namespace COMP2139_Labs.Controllers
       return View(project);
     }
 
-    [HttpGet("Create/{projectId:int}")]
+    [HttpGet("Create")]
     public IActionResult Create()
     {
       return View();
     }
 
-    [HttpPost("Create/{projectId:int}")]
+    [HttpPost("Create")]
     [ValidateAntiForgeryToken]
     public IActionResult Create(Project project)
     {
