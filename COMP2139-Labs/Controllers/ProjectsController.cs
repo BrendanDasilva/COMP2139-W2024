@@ -113,9 +113,9 @@ namespace COMP2139_Labs.Controllers
 
     [HttpPost("DeleteConfirmed/{id:int}")]
     [ValidateAntiForgeryToken]
-    public IActionResult DeleteConfirmed(int ProjectId)
+    public IActionResult DeleteConfirmed(int id)
     {
-      var project = _db.Projects.Find(ProjectId);
+      var project = _db.Projects.Find(id);
       if (project != null)
       {
         _db.Projects.Remove(project);

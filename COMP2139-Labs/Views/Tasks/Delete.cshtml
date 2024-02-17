@@ -30,10 +30,11 @@
             @Html.DisplayFor(model => model.Project.Name)
         </dd>
     </dl>
-    
-    <form asp-action="DeleteConfirmed">
-        <input type="hidden" asp-for="ProjectTaskId" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+
+    <form asp-action="DeleteConfirmed" asp-route-id="@Model.ProjectTaskId" method="post">
+      <input type="hidden" asp-for="ProjectTaskId" />
+      <input type="submit" value="Delete" class="btn btn-danger" /> |
+      <a asp-action="Index" asp-route-projectId="@Model.ProjectId">Back to List</a>
     </form>
+
 </div>
