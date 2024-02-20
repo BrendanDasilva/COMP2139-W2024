@@ -32,13 +32,13 @@ public class HomeController : Controller
     if (searchType == "Projects")
     {
       // Redirect to Projects search
-      return RedirectToAction("Search", "Projects", new { searchString });
+      return RedirectToAction("Search", "Projects", new { area = "ProjectManagement", searchString });
     }
     else if (searchType == "Tasks")
     {
       // Redirect to Tasks search - Assuming default projectId
       int defaultProjectId = 1;
-      return RedirectToAction("Search", "Tasks", new { projectId = defaultProjectId, searchString });
+      return RedirectToAction("Search", "Tasks", new { area = "ProjectManagement", projectId = defaultProjectId, searchString });
     }
 
     return RedirectToAction("Index", "Home");

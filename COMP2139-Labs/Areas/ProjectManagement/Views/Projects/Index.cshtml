@@ -15,13 +15,16 @@
         <thead>
             <tr>
                 <td>
-                    ID
+                  ID
                 </td>
                 <td>
-                    Name
+                  Name
                 </td>
                 <td>
-                    Descritpion
+                  Descritpion
+                </td>
+                <td>
+                  Summary
                 </td>
                 <td>
                   Actions
@@ -41,6 +44,9 @@
                     </td>
                     <td>
                         @project.Description
+                    </td>
+                    <td>
+                      @await Component.InvokeAsync("ProjectSummary", new { projectId = project.ProjectId })
                     </td>
                     <td>
                       <a asp-action="Details" asp-route-id="@project.ProjectId" class="btn btn-info">Details</a>

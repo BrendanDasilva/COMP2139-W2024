@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using COMP2139_Labs.Models;
 using Microsoft.CodeAnalysis;
-using Project = COMP2139_Labs.Models.Project;
+using Project = COMP2139_Labs.Areas.ProjectManagement.Models.Project;
+using COMP2139_Labs.Areas.ProjectManagement.Models;
 
 namespace COMP2139_Labs.Data
 {
