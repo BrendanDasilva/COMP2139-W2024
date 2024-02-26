@@ -1,38 +1,36 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
 
 namespace Assignment1.Models
 {
-    [Table("CarRentals")] 
+    [Table("CarRentals")]
     public class CarRental
     {
         [Key]
         public int RentalId { get; set; }
 
-        [Required(ErrorMessage = "Please select a pickup date")]
-        [Display(Name = "Pickup Date")]
+        [Required(ErrorMessage = "Customer Name is required")]
+        public string CustomerName { get; set; }
+
+        [Required(ErrorMessage = "Customer Email is required")]
+        [EmailAddress(ErrorMessage = "Invalid Email Address")]
+        public string CustomerEmail { get; set; }
+
+        [Required]
         [DataType(DataType.Date)]
         public DateTime PickupDate { get; set; }
 
-        [Required(ErrorMessage = "Please select a return date")]
-        [Display(Name = "Return Date")]
+        [Required]
         [DataType(DataType.Date)]
         public DateTime ReturnDate { get; set; }
 
-        public decimal PricePerDay { get; set; }
-
-        public string Model { get; set; }
-
-        public string Brand { get; set; }
-        public int Year { get; set; }
-
-        public bool IsAvailable { get; set; }
-
+        // Foreign key for the Car
         [ForeignKey("Car")]
         public int CarId { get; set; }
 
-        [Required(ErrorMessage = "Please select a car")]
-        public Cars Car { get; set; }
+        // Navigation property to the Car
+        public virtual Cars Car { get; set; }
 
+        public bool IsCanceled { get; set; }  
     }
 }

@@ -1,9 +1,10 @@
 ﻿using Assignment1.Data;
 using Assignment1.Models;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-
+using System;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace Assignment1.Controllers
 {
@@ -16,18 +17,58 @@ namespace Assignment1.Controllers
             _context = context;
         }
 
-        public IActionResult Index(int carId)
+        public async Task<IActionResult> Index(string sortOrder)
         {
-            var carRentals = _context.CarRentals
-                .Where(carRental => carRental.CarId == carId)
-                .ToList();
+            ViewData["CurrentSort"] = sortOrder;
+            ViewData["BrandSortParm"] = String.IsNullOrEmpty(sortOrder) ? "brand_desc" : "";
+            ViewData["ModelSortParm"] = sortOrder == "Model" ? "model_desc" : "Model";
+            ViewData["YearSortParm"] = sortOrder == "Year" ? "year_desc" : "Year";
+            ViewData["PriceSortParm"] = sortOrder == "Price" ? "price_desc" : "Price";
+            ViewData["AvailableSortParm"] = sortOrder == "Available" ? "available_desc" : "Available";
 
-            ViewBag.CarRentals = carRentals;
-            return View(carRentals);
+            var cars = from c in _context.Cars
+                       where c.IsAvailable
+                       select c;
+
+            switch (sortOrder)
+            {
+                case "brand_desc":
+                    cars = cars.OrderByDescending(c => c.Brand);
+                    break;
+                case "Model":
+                    cars = cars.OrderBy(c => c.Model);
+                    break;
+                case "model_desc":
+                    cars = cars.OrderByDescending(c => c.Model);
+                    break;
+                case "Year":
+                    cars = cars.OrderBy(c => c.Year);
+                    break;
+                case "year_desc":
+                    cars = cars.OrderByDescending(c => c.Year);
+                    break;
+                case "Price":
+                    cars = cars.OrderBy(c => c.PricePerDay);
+                    break;
+                case "price_desc":
+                    cars = cars.OrderByDescending(c => c.PricePerDay);
+                    break;
+                case "Available":
+                    cars = cars.OrderBy(c => c.IsAvailable);
+                    break;
+                case "available_desc":
+                    cars = cars.OrderByDescending(c => c.IsAvailable);
+                    break;
+                default:
+                    cars = cars.OrderBy(c => c.Brand);
+                    break;
+            }
+
+            return View(await cars.AsNoTracking().ToListAsync());
         }
 
         [HttpGet]
-        public IActionResult Create(int carId)
+        public IActionResult Book(int carId)
         {
             var car = _context.Cars.Find(carId);
             if (car == null)
@@ -35,156 +76,98 @@ namespace Assignment1.Controllers
                 return NotFound();
             }
 
-            var carRental = new CarRental
-            {
-                CarId = carId,
-                PickupDate = DateTime.Today,
-                ReturnDate = DateTime.Today.AddDays(1)
-            };
-
-            ViewBag.CarBrand = car.Brand;
-            ViewBag.CarModel = car.Model;
-            ViewBag.CarPricePerDay = car.PricePerDay;
-
-            return View(carRental);
+            return View(car);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create([Bind("RentalId,CarId,PickupDate,ReturnDate")] CarRental carRental)
+        public IActionResult CreateBooking(int carId, string customerName, string customerEmail, DateTime pickupDate, DateTime returnDate)
         {
-            if (ModelState.IsValid)
+            if (pickupDate >= returnDate)
             {
+                ModelState.AddModelError("pickupDate", "Pickup date must be before return date.");
+            }
+
+            if (!ModelState.IsValid)
+            {
+                var car = _context.Cars.Find(carId);
+                return View("Book", car);
+            }
+
+            try
+            {
+                var carRental = new CarRental
+                {
+                    CustomerName = customerName,
+                    CustomerEmail = customerEmail,
+                    PickupDate = pickupDate,
+                    ReturnDate = returnDate,
+                    CarId = carId
+                };
+
                 _context.CarRentals.Add(carRental);
-                _context.SaveChanges();
 
-                MarkCarAsUnavailable(carRental.CarId);
 
-                return RedirectToAction("Index", new { RentalID = carRental.RentalId });
-            }
-
-            ViewData["CarId"] = new SelectList(_context.Cars.Where(car => car.IsAvailable), "CarId", "DisplayName", carRental.CarId);
-            return View(carRental);
-        }
-
-        [HttpGet]
-        public IActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var carRental = _context.CarRentals
-                .Include(c => c.Car)
-                .FirstOrDefault(m => m.RentalId == id);
-
-            if (carRental == null)
-            {
-                return NotFound();
-            }
-
-            return View(carRental);
-        }
-
-        [HttpGet]
-        public IActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var carRental = _context.CarRentals.Find(id);
-
-            if (carRental == null)
-            {
-                return NotFound();
-            }
-
-            ViewData["CarId"] = new SelectList(_context.Cars.Where(car => car.IsAvailable), "CarId", "DisplayName", carRental.CarId);
-            return View(carRental);
-        }
-
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public IActionResult Edit(int id, [Bind("RentalId,CarId,PickupDate,ReturnDate")] CarRental carRental)
-        {
-            if (id != carRental.RentalId)
-            {
-                return NotFound();
-            }
-
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(carRental);
-                    _context.SaveChanges();
-
-                    MarkCarAsUnavailable(carRental.CarId);
-
-                    return RedirectToAction(nameof(Index));
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CarRentalExists(carRental.RentalId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-            }
-            ViewData["CarId"] = new SelectList(_context.Cars.Where(car => car.IsAvailable), "CarId", "DisplayName", carRental.CarId);
-            return View(carRental);
-        }
-
-        [HttpGet]
-        public IActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
-
-            var carRental = _context.CarRentals
-                .Include(c => c.Car)
-                .FirstOrDefault(m => m.RentalId == id);
-
-            if (carRental == null)
-            {
-                return NotFound();
-            }
-
-            return View(carRental);
-        }
-
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            var carRental = _context.CarRentals.Find(id);
-            _context.CarRentals.Remove(carRental);
-            _context.SaveChanges();
-            return RedirectToAction(nameof(Index));
-        }
-
-        private bool CarRentalExists(int rentalId)
-        {
-            return _context.CarRentals.Any(e => e.RentalId == rentalId);
-        }
-
-        private void MarkCarAsUnavailable(int carId)
-        {
-            var car = _context.Cars.FirstOrDefault(c => c.CarId == carId);
-            if (car != null)
-            {
+                var car = _context.Cars.Find(carId);
                 car.IsAvailable = false;
                 _context.SaveChanges();
+
+                return RedirectToAction("Confirmation", new { id = carRental.RentalId });
             }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "An error occurred while saving the booking to the database. Please try again.");
+            }
+
+
+            var carModel = _context.Cars.Find(carId);
+            return View("Book", carModel);
         }
+
+        [HttpGet]
+        public IActionResult Confirmation(int id)
+        {
+            var carRental = _context.CarRentals
+                .Include(cr => cr.Car)
+                .FirstOrDefault(cr => cr.RentalId == id);
+
+            if (carRental == null)
+            {
+                return NotFound();
+            }
+
+            return View(carRental);
+        }
+
+        public IActionResult CurrentRentals()
+        {
+            var currentRentals = _context.CarRentals
+                .Include(cr => cr.Car)
+                .ToList();
+
+            return View(currentRentals);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult CancelRental(int id)
+        {
+            var rental = _context.CarRentals.Include(cr => cr.Car).FirstOrDefault(cr => cr.RentalId == id);
+            if (rental == null)
+            {
+                return NotFound();
+            }
+
+            // Mark the associated car as available
+            rental.Car.IsAvailable = true;
+
+            _context.CarRentals.Remove(rental);
+            _context.SaveChanges();
+
+            return RedirectToAction(nameof(CurrentRentals));
+        }
+
+
+
     }
 }
