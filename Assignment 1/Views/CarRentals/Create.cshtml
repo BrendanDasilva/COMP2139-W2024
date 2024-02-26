@@ -1,0 +1,52 @@
+﻿@model Assignment1.Models.CarRental
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h2>Create</h2>
+
+<h4>Car Rental Details</h4>
+<hr />
+
+<div>
+    <strong>Car Brand:</strong> @ViewBag.CarBrand <br />
+    <strong>Car Model:</strong> @ViewBag.CarModel <br />
+    <strong>Car Price Per Day:</strong> @ViewBag.CarPricePerDay <br />
+</div>
+<hr />
+
+<form asp-action="Create" id="createForm">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    @Html.HiddenFor(car => car.CarId)
+    @Html.HiddenFor(car => car.Brand)
+    @Html.HiddenFor(car => car.Model)
+    @Html.HiddenFor(car => car.PricePerDay)
+
+    <div class="form-group">
+        <label asp-for="PickupDate" class="control-label">Pickup Date</label>
+        <input asp-for="PickupDate" class="form-control" />
+        <span asp-validation-for="PickupDate" class="text-danger"></span>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="ReturnDate" class="control-label">Return Date</label>
+        <input asp-for="ReturnDate" class="form-control" />
+        <span asp-validation-for="ReturnDate" class="text-danger"></span>
+    </div>
+
+
+    <div class="form-group">
+        <input type="submit" value="Create" class="btn btn-primary" />
+    </div>
+</form>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

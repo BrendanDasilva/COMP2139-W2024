@@ -1,0 +1,35 @@
+﻿@model IEnumerable<Assignment1.Models.CarRental>
+
+@{
+  ViewData["Title"] = "Current Rental Car Bookings";
+}
+
+<h2 class="pageTitle">Current Rental Car Bookings</h2>
+
+<div class="container">
+  <div class="row mb-4">
+    <div class="col-md-12">
+      <a asp-action="Create" asp-route-carId="1" class="btn btn-info">Book Your Car Rental Now!</a>
+    </div>
+  </div>
+  <div class="row">
+    @foreach (var item in Model)
+    {
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">@item.Car.DisplayName</h5>
+            <p class="card-text">
+              <strong>Booking ID:</strong> @item.RentalId <br>
+              <strong>Pickup Date:</strong> @item.PickupDate.ToString("g") <br>
+              <strong>Return Date:</strong> @item.ReturnDate.ToString("g") <br>
+            </p>
+            <a asp-action="Edit" asp-route-id="@item.RentalId" class="btn btn-primary">Edit</a>
+            <a asp-action="Details" asp-route-id="@item.RentalId" class="btn btn-secondary">Details</a>
+            <a asp-action="Delete" asp-route-id="@item.RentalId" class="btn btn-danger">Delete</a>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+</div>
