@@ -14,6 +14,8 @@ namespace COMP2139_Labs.Data
         public DbSet<Project> Projects { get; set; }
         
         public DbSet<ProjectTask> ProjectTasks { get; set; }
+
+        public DbSet<ProjectComment> ProjectComments { get; set; }
     }
 
 }
