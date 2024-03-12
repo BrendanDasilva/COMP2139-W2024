@@ -32,6 +32,7 @@ namespace COMP2139_Labs.Areas.ProjectManagement.Controllers
       return Json(comments);
     }
 
+    // POST : ProjectManagement/ProjectComment/AddComment
     [HttpPost]
     public async Task<IActionResult> AddComment([FromBody] ProjectComment comment)
     {

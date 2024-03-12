@@ -37,8 +37,9 @@ public class HomeController : Controller
     else if (searchType == "Tasks")
     {
       // Redirect to Tasks search - Assuming default projectId
-      int defaultProjectId = 1;
-      return RedirectToAction("Search", "Tasks", new { area = "ProjectManagement", projectId = defaultProjectId, searchString });
+      //int defaultProjectId = 1;
+      //return RedirectToAction("Search", "Tasks", new { area = "ProjectManagement", projectId = defaultProjectId, searchString });
+      var url = Url.Action("Search", "Task", new { area = "ProjectManagement", searchString }) + $"?searchString={searchString}";
     }
 
     return RedirectToAction("Index", "Home");
