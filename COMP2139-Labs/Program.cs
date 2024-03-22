@@ -2,6 +2,7 @@ using COMP2139_Labs.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using COMP2139_Labs.Services;
+using COMP2139_Labs.Areas.ProjectManagement.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,7 +13,17 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+//builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+
+//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+  .AddEntityFrameworkStores<ApplicationDbContext>()
+  .AddDefaultUI()
+  .AddDefaultTokenProviders();
+
+builder.Services.AddControllersWithViews();
+builder.Services.AddRazorPages();
 
 builder.Services.AddSingleton<IEmailSender, IEmailSender>();
 
