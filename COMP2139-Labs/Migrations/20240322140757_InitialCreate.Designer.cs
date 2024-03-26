@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace COMP2139_Labs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240319150048_Added Custom ApplicationUser Properties")]
-    partial class AddedCustomApplicationUserProperties
+    [Migration("20240322140757_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

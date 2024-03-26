@@ -116,6 +116,7 @@ namespace COMP2139_Labs.Areas.Identity.Pages.Account
                 var userName = Input.Email;
                 if (IsValidEmail(Input.Email))
             {
+              // this breaks on login after entering email and password and hitting enter
               var user = await _userManager.FindByEmailAsync(Input.Email);
               if (user != null)
               {

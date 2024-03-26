@@ -39,11 +39,15 @@ namespace COMP2139_Labs.Areas.Identity.Pages.Account.Manage
         [TempData]
         public string StatusMessage { get; set; }
 
-        /// <summary>
-        ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
-        ///     directly from your code. This API may change or be removed in future releases.
-        /// </summary>
-        [BindProperty]
+        // Lab 10
+        [TempData]
+        public string UserNameChangeLimitMessage { get; set; }
+
+    /// <summary>
+    ///     This API supports the ASP.NET Core Identity default UI infrastructure and is not intended to be used
+    ///     directly from your code. This API may change or be removed in future releases.
+    /// </summary>
+    [BindProperty]
         public InputModel Input { get; set; }
 
         /// <summary>
@@ -108,6 +112,7 @@ namespace COMP2139_Labs.Areas.Identity.Pages.Account.Manage
             {
                 return NotFound($"Unable to load user with ID '{_userManager.GetUserId(User)}'.");
             }
+            UserNameChangeLimitMessage = $"You can change your name {user.UsernameChangeLimit} more times";
 
             await LoadAsync(user);
             return Page();
@@ -148,9 +153,16 @@ namespace COMP2139_Labs.Areas.Identity.Pages.Account.Manage
                   StatusMessage = "Error: username already taken. Please choose a different username";
                   return RedirectToPage();
                 }
+                // Lab 10 
+                var setUserName = await _userManager.SetUserNameAsync(user, Input.Username);
+                if (!setUserName.Succeeded)
+                {
+                  StatusMessage = "Unexpected error when trying to set user name";
+                  return RedirectToPage();
+                }
                 else
                 {
-                  user.UserName = Input.Username;
+                  user.UserName = Input.Username; // lab 10 does not show this so delete if its a problem
                   user.UsernameChangeLimit -= 1;
                   await _userManager.UpdateAsync(user);
                 }
@@ -173,6 +185,7 @@ namespace COMP2139_Labs.Areas.Identity.Pages.Account.Manage
               await _userManager.UpdateAsync(user);
             }
 
+            // Lab 10
             if (Request.Form.Files.Count > 0)
             {
               IFormFile file = Request.Form.Files.FirstOrDefault();
@@ -184,6 +197,7 @@ namespace COMP2139_Labs.Areas.Identity.Pages.Account.Manage
               await _userManager.UpdateAsync(user);
             }
 
+            // End Lab 10
             await _signInManager.RefreshSignInAsync(user);
             StatusMessage = "Your profile has been updated";
             return RedirectToPage();

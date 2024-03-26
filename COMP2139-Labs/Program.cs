@@ -17,7 +17,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 //builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
   .AddEntityFrameworkStores<ApplicationDbContext>()
   .AddDefaultUI()
   .AddDefaultTokenProviders();
@@ -30,7 +30,7 @@ builder.Services.AddSingleton<IEmailSender, IEmailSender>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (!app.Environment.IsDevelopment()) // removed ! to see user environment
+if (!app.Environment.IsDevelopment()) // remove ! to see user environment
 {
   app.UseExceptionHandler("/Home/Error");
   app.UseStatusCodePagesWithRedirects("/Home/NotFound?statusCode={0}");
@@ -39,6 +39,23 @@ if (!app.Environment.IsDevelopment()) // removed ! to see user environment
 else
 {
   app.UseDeveloperExceptionPage();
+}
+
+using var scope = app.Services.CreateScope();
+var loggerFactory = scope.ServiceProvider.GetRequiredService<ILoggerFactory>();
+
+try
+{
+  ApplicationDbContext context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+  var userManager = scope.ServiceProvider.GetRequiredService<UserManager<ApplicationUser>>();
+  var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+  await ContextSeed.SeedRolesAsync(userManager, roleManager);
+  await ContextSeed.SeedSuperAdminAsync(userManager, roleManager);
+}
+catch (Exception ex)
+{
+  var logger = loggerFactory.CreateLogger<Program>();
+  logger.LogError(ex, "An error occurred seeding the Roles in the Database");
 }
 
 app.UseHttpsRedirection();
