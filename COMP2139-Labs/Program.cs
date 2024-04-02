@@ -13,10 +13,6 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-//builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
-
-//builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<ApplicationDbContext>();
-
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
   .AddEntityFrameworkStores<ApplicationDbContext>()
   .AddDefaultUI()
@@ -25,7 +21,7 @@ builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.S
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-builder.Services.AddSingleton<IEmailSender, IEmailSender>();
+builder.Services.AddSingleton<IEmailSender, EmailSender>();
 
 var app = builder.Build();
 
@@ -33,6 +29,7 @@ var app = builder.Build();
 if (!app.Environment.IsDevelopment()) // remove ! to see user environment
 {
   app.UseExceptionHandler("/Home/Error");
+  // Lab 5 - custom error page
   app.UseStatusCodePagesWithRedirects("/Home/NotFound?statusCode={0}");
   app.UseHsts();
 } 
@@ -41,6 +38,7 @@ else
   app.UseDeveloperExceptionPage();
 }
 
+// Lab 10
 using var scope = app.Services.CreateScope();
 var loggerFactory = scope.ServiceProvider.GetRequiredService<ILoggerFactory>();
 

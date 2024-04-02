@@ -16,7 +16,7 @@ namespace COMP2139_Labs.Data
     public static async Task SeedSuperAdminAsync(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
     {
       //Seed Default User
-      var defaultUser = new ApplicationUser
+      var superUser = new ApplicationUser
       {
         UserName = "superadmin",
         Email = "superadmin@gmail.com",
@@ -25,16 +25,17 @@ namespace COMP2139_Labs.Data
         EmailConfirmed = true,
         PhoneNumberConfirmed = true
       };
-      if (userManager.Users.All(u => u.Id != defaultUser.Id))
+
+      if (userManager.Users.All(u => u.Id != superUser.Id))
       {
-        var user = await userManager.FindByEmailAsync(defaultUser.Email);
+        var user = await userManager.FindByEmailAsync(superUser.Email);
         if (user == null)
         {
-          await userManager.CreateAsync(defaultUser, "[Password]");
-          await userManager.AddToRoleAsync(defaultUser, Enum.Roles.Basic.ToString());
-          await userManager.AddToRoleAsync(defaultUser, Enum.Roles.Moderator.ToString());
-          await userManager.AddToRoleAsync(defaultUser, Enum.Roles.Admin.ToString());
-          await userManager.AddToRoleAsync(defaultUser, Enum.Roles.SuperAdmin.ToString());
+          await userManager.CreateAsync(superUser, "Password");
+          await userManager.AddToRoleAsync(superUser, Enum.Roles.Basic.ToString());
+          await userManager.AddToRoleAsync(superUser, Enum.Roles.Moderator.ToString());
+          await userManager.AddToRoleAsync(superUser, Enum.Roles.Admin.ToString());
+          await userManager.AddToRoleAsync(superUser, Enum.Roles.SuperAdmin.ToString());
         }
       }
     }
