@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using COMP2139_Labs.Services;
 using COMP2139_Labs.Areas.ProjectManagement.Models;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -13,7 +14,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"));
 });
 
-builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>(/*options => options.SignIn.RequireConfirmedAccount = true*/)
   .AddEntityFrameworkStores<ApplicationDbContext>()
   .AddDefaultUI()
   .AddDefaultTokenProviders();
@@ -22,6 +23,14 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
 builder.Services.AddSingleton<IEmailSender, EmailSender>();
+
+builder.Host.UseSerilog((hostingContext, LoggerConfiguration) =>
+  LoggerConfiguration.ReadFrom.Configuration(hostingContext.Configuration));
+
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ISessionService, SessionService>();
+
+builder.Services.AddSession();
 
 var app = builder.Build();
 
@@ -64,6 +73,7 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapRazorPages();
+app.UseSession();
 
 app.MapControllerRoute(
     name: "areas",

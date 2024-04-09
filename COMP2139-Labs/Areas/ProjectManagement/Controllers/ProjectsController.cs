@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using COMP2139_Labs.Data;
 using COMP2139_Labs.Areas.ProjectManagement.Models;
+using COMP2139_Labs.Services;
 
 namespace COMP2139_Labs.Areas.ProjectManagement.Controllers
 {
@@ -10,16 +11,29 @@ namespace COMP2139_Labs.Areas.ProjectManagement.Controllers
     public class ProjectsController : Controller
     {
         private readonly ApplicationDbContext _db;
+        private readonly ILogger<ProjectsController> _logger;
+        private readonly ISessionService _sessionService;
 
-        public ProjectsController(ApplicationDbContext db)
+        public ProjectsController(ApplicationDbContext db, ILogger<ProjectsController> logger,
+          ISessionService sessionService)
         {
             _db = db;
+            _logger = logger;
+            _sessionService = sessionService;
         }
 
         [HttpGet("")]
         public async Task<IActionResult> Index()
         {
+            _logger.LogInformation("Calling project index action");
             var projects = await _db.Projects.ToListAsync();
+
+            // Session Mgmt
+            var value = _sessionService.GetSessionData<int?>("Visited") ?? 0;
+            _sessionService.SetSessionData("Visited", value + 1);
+
+            ViewBag.mysession = value + 1;
+
             return View(projects);
         }
 
@@ -27,6 +41,8 @@ namespace COMP2139_Labs.Areas.ProjectManagement.Controllers
         [HttpGet("Details/{id:int}")]
         public async Task<IActionResult> Details(int id)
         {
+            _logger.LogInformation("Calling project detail action");
+
             var project = await _db.Projects.FirstOrDefaultAsync(p => p.ProjectId == id);
             if (project == null)
             {

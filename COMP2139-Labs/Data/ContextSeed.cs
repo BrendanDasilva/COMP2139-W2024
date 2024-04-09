@@ -31,7 +31,7 @@ namespace COMP2139_Labs.Data
         var user = await userManager.FindByEmailAsync(superUser.Email);
         if (user == null)
         {
-          await userManager.CreateAsync(superUser, "Password");
+          await userManager.CreateAsync(superUser, "Password1?");
           await userManager.AddToRoleAsync(superUser, Enum.Roles.Basic.ToString());
           await userManager.AddToRoleAsync(superUser, Enum.Roles.Moderator.ToString());
           await userManager.AddToRoleAsync(superUser, Enum.Roles.Admin.ToString());

@@ -2,20 +2,31 @@
 using Microsoft.AspNetCore.Mvc;
 using COMP2139_Labs.Models;
 using Humanizer;
+using COMP2139_Labs.Services;
 
 namespace COMP2139_Labs.Controllers;
 
 public class HomeController : Controller
 {
   private readonly ILogger<HomeController> _logger;
+  private readonly ISessionService _sessionService;
 
-  public HomeController(ILogger<HomeController> logger)
+  public HomeController(ILogger<HomeController> logger, ISessionService sessionService)
   {
     _logger = logger;
+    _sessionService = sessionService;
   }
 
   public IActionResult Index()
   {
+    // Lab 12
+    const string sessionKey = "VisitCount";
+    int visitCount = _sessionService.GetSessionData<int>(sessionKey);
+    visitCount++;
+    _sessionService.SetSessionData(sessionKey, visitCount);
+
+    ViewData["VisitCount"] = visitCount;
+
     return View();
   }
 
