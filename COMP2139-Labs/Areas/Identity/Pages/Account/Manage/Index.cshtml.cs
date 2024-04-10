@@ -143,7 +143,15 @@ namespace COMP2139_Labs.Areas.Identity.Pages.Account.Manage
                 }
             }
 
-            if (user.UsernameChangeLimit > 0)
+      // Inserted check to ensure username is not null or empty
+      if (string.IsNullOrWhiteSpace(Input.Username))
+      {
+        ModelState.AddModelError("Input.Username", "Username cannot be empty.");
+        await LoadAsync(user); // Reload the user details to redisplay the form with the current user info and error message
+        return Page();
+      }
+
+      if (user.UsernameChangeLimit > 0)
             {
               if (Input.Username != user.UserName)
               {
