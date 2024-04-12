@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace COMP2139_Labs.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240410185640_AddUsernameChangeLimit")]
-    partial class AddUsernameChangeLimit
+    [Migration("20240410195000_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
