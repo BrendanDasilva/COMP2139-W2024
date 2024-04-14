@@ -1,5 +1,6 @@
 ﻿using Assignment1.Data;
 using Assignment1.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,13 +13,15 @@ public class AdminController : Controller
     _context = context;
   }
 
-  public IActionResult AdminIndex()
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public IActionResult AdminIndex()
   {
     return View();
   }
 
-  // GET: Admin/CreateFlight
-  public IActionResult CreateFlight()
+    // GET: Admin/CreateFlight
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public IActionResult CreateFlight()
   {
     return View();
   }
@@ -26,7 +29,8 @@ public class AdminController : Controller
   // POST: Admin/CreateFlight
   [HttpPost]
   [ValidateAntiForgeryToken]
-  public async Task<IActionResult> CreateFlight([Bind("Airline,Destination,DepartureAirport,ArrivalAirport,DepartureTime,ArrivalTime,Price")] Flight flight)
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public async Task<IActionResult> CreateFlight([Bind("Airline,Destination,DepartureAirport,ArrivalAirport,DepartureTime,ArrivalTime,Price")] Flight flight)
   {
     if (ModelState.IsValid)
     {
@@ -37,15 +41,17 @@ public class AdminController : Controller
     return View(flight);
   }
 
-  // GET: Admin/CreateCar
-  public IActionResult CreateCar()
+    // GET: Admin/CreateCar
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public IActionResult CreateCar()
   {
     return View();
   }
 
   [HttpPost]
   [ValidateAntiForgeryToken]
-  public async Task<IActionResult> CreateCar([Bind("Brand,Model,Year,PricePerDay,IsAvailable")] Cars car)
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public async Task<IActionResult> CreateCar([Bind("Brand,Model,Year,PricePerDay,IsAvailable")] Cars car)
   {
     if (ModelState.IsValid)
     {
@@ -61,27 +67,28 @@ public class AdminController : Controller
       return View(car);
     }
   }
-
-  public IActionResult ListFlights()
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public IActionResult ListFlights()
   {
     var flights = _context.Flights.ToList();
     return View(flights);
   }
-
-  public IActionResult ListCars()
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public IActionResult ListCars()
   {
     var cars = _context.Cars.ToList();
     return View(cars);
   }
-
-  public IActionResult ListHotels()
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public IActionResult ListHotels()
   {
     var hotels = _context.Hotels.ToList();
     return View(hotels);
   }
 
-  // GET: Admin/EditCar/5
-  public async Task<IActionResult> EditCar(int? id)
+    // GET: Admin/EditCar/5
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public async Task<IActionResult> EditCar(int? id)
   {
     if (id == null)
     {
@@ -99,7 +106,8 @@ public class AdminController : Controller
   // POST: Admin/EditCar/5
   [HttpPost]
   [ValidateAntiForgeryToken]
-  public async Task<IActionResult> EditCar(int id, [Bind("CarId,Brand,Model,Year,PricePerDay,IsAvailable")] Cars car)
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public async Task<IActionResult> EditCar(int id, [Bind("CarId,Brand,Model,Year,PricePerDay,IsAvailable")] Cars car)
   {
     if (id != car.CarId)
     {
@@ -134,8 +142,9 @@ public class AdminController : Controller
     return _context.Cars.Any(e => e.CarId == id);
   }
 
-  // GET: Admin/DeleteCar/5
-  public async Task<IActionResult> DeleteCar(int? id)
+    // GET: Admin/DeleteCar/5
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public async Task<IActionResult> DeleteCar(int? id)
   {
     if (id == null)
     {
@@ -155,7 +164,8 @@ public class AdminController : Controller
   // POST: Admin/DeleteCarConfirmed/5
   [HttpPost, ActionName("DeleteCarConfirmed")]
   [ValidateAntiForgeryToken]
-  public async Task<IActionResult> DeleteCarConfirmed(int id)
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public async Task<IActionResult> DeleteCarConfirmed(int id)
   {
     var car = await _context.Cars.FindAsync(id);
     if (car != null) // Check if the car is not null
@@ -168,8 +178,9 @@ public class AdminController : Controller
 
 
 
-  // GET: Admin/EditFlight/5
-  public async Task<IActionResult> EditFlight(int? id)
+    // GET: Admin/EditFlight/5
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public async Task<IActionResult> EditFlight(int? id)
   {
     if (id == null)
     {
@@ -187,7 +198,8 @@ public class AdminController : Controller
   // POST: Admin/EditFlight/5
   [HttpPost]
   [ValidateAntiForgeryToken]
-  public async Task<IActionResult> EditFlight(int id, [Bind("FlightId,Airline,Destination,DepartureAirport,ArrivalAirport,DepartureTime,ArrivalTime,Price")] Flight flight)
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public async Task<IActionResult> EditFlight(int id, [Bind("FlightId,Airline,Destination,DepartureAirport,ArrivalAirport,DepartureTime,ArrivalTime,Price")] Flight flight)
   {
     if (id != flight.FlightId)
     {
@@ -222,8 +234,9 @@ public class AdminController : Controller
     return _context.Flights.Any(e => e.FlightId == id);
   }
 
-  // GET: Admin/DeleteFlight/5
-  public async Task<IActionResult> DeleteFlight(int? id)
+    // GET: Admin/DeleteFlight/5
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public async Task<IActionResult> DeleteFlight(int? id)
   {
     if (id == null)
     {
@@ -243,7 +256,8 @@ public class AdminController : Controller
   // POST: Admin/DeleteFlightConfirmed/5
   [HttpPost, ActionName("DeleteFlightConfirmed")]
   [ValidateAntiForgeryToken]
-  public async Task<IActionResult> DeleteFlightConfirmed(int id)
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public async Task<IActionResult> DeleteFlightConfirmed(int id)
   {
     var flight = await _context.Flights.FindAsync(id);
     if (flight != null) // Check if the flight is not null
@@ -254,9 +268,10 @@ public class AdminController : Controller
     return RedirectToAction(nameof(ListFlights));
   }
 
-  // HOTEL ACTIONS
-  // GET: Admin/CreateHotel
-  public IActionResult CreateHotel()
+    // HOTEL ACTIONS
+    // GET: Admin/CreateHotel
+    [Authorize]
+    public IActionResult CreateHotel()
   {
     return View();
   }
@@ -264,7 +279,8 @@ public class AdminController : Controller
   // POST: Admin/CreateHotel
   [HttpPost]
   [ValidateAntiForgeryToken]
-  public async Task<IActionResult> CreateHotel([Bind("Name,Location,PricePerNight,Amenities,ServiceType")] Hotel hotel)
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public async Task<IActionResult> CreateHotel([Bind("Name,Location,PricePerNight,Amenities,ServiceType")] Hotel hotel)
   {
     if (ModelState.IsValid)
     {
@@ -275,8 +291,9 @@ public class AdminController : Controller
     return View(hotel);
   }
 
-  // GET: Admin/EditHotel/5
-  public async Task<IActionResult> EditHotel(int? id)
+    // GET: Admin/EditHotel/5
+    [Authorize]
+    public async Task<IActionResult> EditHotel(int? id)
   {
     if (id == null)
     {
@@ -294,7 +311,8 @@ public class AdminController : Controller
   // POST: Admin/EditHotel/5
   [HttpPost]
   [ValidateAntiForgeryToken]
-  public async Task<IActionResult> EditHotel(int id, [Bind("HotelId,Name,Location,PricePerNight,Amenities,ServiceType")] Hotel hotel)
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public async Task<IActionResult> EditHotel(int id, [Bind("HotelId,Name,Location,PricePerNight,Amenities,ServiceType")] Hotel hotel)
   {
     if (id != hotel.HotelId)
     {
@@ -330,8 +348,9 @@ public class AdminController : Controller
   }
 
 
-  // GET: Admin/DeleteHotel/5
-  public async Task<IActionResult> DeleteHotel(int? id)
+    // GET: Admin/DeleteHotel/5
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public async Task<IActionResult> DeleteHotel(int? id)
   {
     if (id == null)
     {
@@ -351,7 +370,8 @@ public class AdminController : Controller
   // POST: Admin/DeleteHotelConfirmed/5
   [HttpPost, ActionName("DeleteHotelConfirmed")]
   [ValidateAntiForgeryToken]
-  public async Task<IActionResult> DeleteHotelConfirmed(int id)
+    [Authorize(Roles = "SuperAdmin, Admin")]
+    public async Task<IActionResult> DeleteHotelConfirmed(int id)
   {
     var hotel = await _context.Hotels.FindAsync(id);
     if (hotel != null)

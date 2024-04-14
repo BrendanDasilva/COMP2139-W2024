@@ -1,0 +1,20 @@
+﻿@model Assignment1.Models.HotelBooking
+
+
+<h2>Hotel Booking Confirmation</h2>
+
+<h3>Hotel Details</h3>
+<p>Name: @Model.Hotel.Name</p>
+<p>Location: @Model.Hotel.Location</p>
+
+<div>
+    <h4>Customer Name: @Model.CustomerName</h4>
+    <h4>Customer Email: @Model.CustomerEmail</h4>
+    <h4>Check-in Date: @Model.CheckInDate.ToShortDateString()</h4>
+    <h4>Check-out Date: @Model.CheckOutDate.ToShortDateString()</h4>
+    <h4>Hotel: @Model.Hotel.Name</h4>
+</div>
+
+<div>
+    <a asp-controller="HotelBookings" asp-action="Index" class="btn btn-primary">View Other Locations</a>
+</div>

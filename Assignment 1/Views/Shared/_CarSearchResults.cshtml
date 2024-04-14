@@ -1,0 +1,20 @@
+﻿@model IEnumerable<Assignment1.Models.Cars>
+
+<div class="row">
+  @foreach (var car in Model)
+  {
+    <div class="col-md-4 mb-4">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">@car.Brand @car.Model</h5>
+          <p class="card-text">
+            <strong>Year:</strong> @car.Year <br>
+            <strong>Location:</strong> @car.Location <br>
+            <strong>Price Per Day:</strong> @String.Format("{0:C}", car.PricePerDay)
+          </p>
+          <a asp-controller="CarRentals" asp-action="Book" asp-route-carId="@car.CarId" class="btn btn-primary">Book</a>
+        </div>
+      </div>
+    </div>
+  }
+</div>

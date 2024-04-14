@@ -20,5 +20,8 @@ namespace Assignment1.Models
         public double PricePerDay { get; set; }
 
         public bool IsAvailable { get; set; }
-    }
+
+        [Required(ErrorMessage = "Location is required")]
+        public string Location { get; set; }
+  }
 }

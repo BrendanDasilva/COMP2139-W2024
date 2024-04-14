@@ -1,0 +1,27 @@
+﻿@model Assignment1.Models.Hotel
+
+<h2>Book Hotel: @Model.Name</h2>
+
+<form asp-controller="HotelBookings" asp-action="Book" method="post">
+    <input type="hidden" name="hotelId" value="@Model.HotelId" />
+
+    <div class="form-group">
+        <label for="customerName">Customer Name:</label>
+        <input type="text" id="customerName" name="customerName" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="customerEmail">Customer Email:</label>
+        <input type="email" id="customerEmail" name="customerEmail" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="checkInDate">Check-in Date:</label>
+        <input type="date" id="checkInDate" name="checkInDate" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <label for="checkOutDate">Check-Out Date:</label>
+        <input type="date" id="checkOutDate" name="checkOutDate" class="form-control" required />
+    </div>
+    <div class="form-group">
+        <input type="submit" value="Confirm Reservation" class="btn btn-primary" />
+    </div>
+</form>

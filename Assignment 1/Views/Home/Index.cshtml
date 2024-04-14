@@ -1,25 +1,64 @@
-﻿@{
+﻿@model Assignment1.Models.RandomTripViewModel
+
+@{
   ViewData["Title"] = "Home";
 }
 
-<div class="jumbotron py-3">
+
+<div class="header jumbotron py-3">
+  <div class="header-text">
   <h1 class="display-4">Welcome to ExploreTheWorld!</h1>
   <p class="lead">Your one-stop destination for all your travel needs.</p>
   <p>Book flights, hotels, and car rentals all in one place.</p>
-  <hr class="my-4">
+  </div>
 </div>
 
+<div class="centered-section">
 <section class="search-panel text-center py-3 border border-dark rounded">
   <h2>Book Your Trip</h2>
   <p>Search for and book your ideal getaway now!</p>
-  <form asp-controller="Home" asp-action="Search" method="get">
-    <input type="text" name="destination" placeholder="Destination" />
-    <input type="date" name="departureDate" placeholder="Departure Date" />
-    <input type="date" name="returnDate" placeholder="Return Date" />
+  <form id="searchForm" asp-controller="Home" asp-action="Search" method="get">
+      <input type="text" name="destination" placeholder="Destination" class="form-control input-small" />
+      <input type="date" name="departureDate" placeholder="Departure Date" class="form-control input-small" />
+      <input type="date" name="returnDate" placeholder="Return Date" class="form-control input-small" />
     <button type="submit" class="btn btn-primary">Search</button>
   </form>
+  <div id="searchResults"></div> <!-- Container for AJAX results -->
+  <div id="loading" style="display:none;">Loading...</div> <!-- Loading indicator -->
 </section>
 
+<section class="search-panel text-center py-3 border border-dark rounded" style="padding: 20px 0;">
+  <h2>Search Car Rentals</h2>
+  <p>Find the perfect car for your next trip.</p>
+  <form id="carSearchForm" asp-controller="Home" asp-action="SearchCars" method="get">
+    <div class="form-group">
+      <input type="text" name="location" placeholder="Enter location (city)" class="form-control mb-2 input-small" />
+    </div>
+    <div class="form-group">
+      <input type="text" name="brand" placeholder="Enter brand (optional)" class="form-control mb-2 input-small" />
+    </div>
+    <div class="form-group">
+      <input type="text" name="model" placeholder="Enter model (optional)" class="form-control mb-2 input-small" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+  <div id="carSearchResults"></div> <!-- Container for AJAX car search results -->
+  <div id="carLoading" style="display:none;">Loading...</div> <!-- Loading indicator -->
+</section>
+
+<section class="search-panel text-center py-3 border border-dark rounded">
+  <h2>Search Hotels</h2>
+  <p>Find the best hotel deals.</p>
+  <form id="hotelSearchForm" asp-controller="Home" asp-action="SearchHotels" method="get">
+    <div class="form-group">
+      <input type="text" name="location" placeholder="Enter location (city)" class="form-control mb-2 input-small" />
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+  </form>
+  <div id="hotelSearchResults"></div> <!-- Container for AJAX hotel search results -->
+  <div id="hotelLoading" style="display:none;">Loading...</div> <!-- Loading indicator -->
+</section>
+</div>
 
 <section class="featured-destinations text-center py-4">
   <h2>Featured Destinations</h2>
@@ -61,13 +100,103 @@
 </section>
 
 
+<div class="bg">
+<section>
+  <div class="container mt-3">
+    <div class="container mt-3">
+      <h2>Featured Picks</h2>
+      <div class="row">
+        <!-- Random Flight Card -->
+        @if (Model.RandomFlight != null)
+        {
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">@Model.RandomFlight.Airline</h5>
+                <p class="card-text">
+                  <strong>Destination:</strong> @Model.RandomFlight.Destination <br>
+                  <strong>From:</strong> @Model.RandomFlight.DepartureAirport <br>
+                  <strong>To:</strong> @Model.RandomFlight.ArrivalAirport <br>
+                  <strong>Departure:</strong> @Model.RandomFlight.DepartureTime.ToString("g") <br>
+                  <strong>Arrival:</strong> @Model.RandomFlight.ArrivalTime.ToString("g") <br>
+                  <strong>Price:</strong> @String.Format("{0:C}", Model.RandomFlight.Price)
+                </p>
+                <form asp-controller="FlightBooking" asp-action="Book" method="get">
+                  <input type="hidden" name="flightId" value="@Model.RandomFlight.FlightId" />
+                  <button type="submit" class="btn btn-primary">Book</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- Random Car Card -->
+        @if (Model.RandomCar != null)
+        {
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">@Model.RandomCar.Brand @Model.RandomCar.Model</h5>
+                <p class="card-text">
+                  <strong>Year:</strong> @Model.RandomCar.Year <br>
+                  <strong>Price Per Day:</strong> @String.Format("{0:C}", Model.RandomCar.PricePerDay) <br>
+                  <strong>Location:</strong> @Model.RandomCar.Location <br>
+                  <strong>Availability:</strong> @(Model.RandomCar.IsAvailable ? "Available" : "Unavailable")
+                </p>
+                <form asp-controller="CarRentals" asp-action="Book" method="get">
+                  <input type="hidden" name="carId" value="@Model.RandomCar.CarId" />
+                  @Html.AntiForgeryToken()
+                  <button type="submit" class="btn btn-primary">Rent</button>
+                </form>
+              </div>
+            </div>
+          </div>
+        }
+
+
+        <!-- Random Hotel Card -->
+        @if (Model.RandomHotel != null)
+        {
+          <div class="col-md-4">
+            <div class="card">
+              <div class="card-body">
+                <h5 class="card-title">@Model.RandomHotel.Name</h5>
+                <p class="card-text">
+                  <strong>Location:</strong> @Model.RandomHotel.Location <br>
+                  <strong>Price Per Night:</strong> @String.Format("{0:C}", Model.RandomHotel.PricePerNight) <br>
+                  <strong>Amenities:</strong> @Model.RandomHotel.Amenities <br>
+                  <strong>Service Type:</strong> @Model.RandomHotel.ServiceType <br>
+                  <strong>Availability:</strong> @(Model.RandomHotel.IsAvailable ? "Available" : "Unavailable")
+                </p>
+                <a asp-controller="HotelBookings" asp-action="Book" asp-route-hotelId="@Model.RandomHotel.HotelId" class="btn btn-primary">Reserve</a>
+              </div>
+            </div>
+          </div>
+        }
+
+      </div>
+    </div>
+</section>
+</div>
+
+
 <section class="testimonials text-center py-3">
   <h2>Customer Testimonials</h2>
-  <p>"I had a fantastic experience using ExploreTheWorld to book my family vacation!" - Jane Doe</p>
-  <!-- Additional testimonials if we want -->
+  <div id="testimonialList">
+    <p>"I had a fantastic experience using ExploreTheWorld to book my family vacation!" - Jane Doe</p>
+    <!-- Placeholder for additional testimonials -->
+  </div>
+
+  <form id="testimonialForm" asp-controller="Home" asp-action="AddTestimonial" method="post">
+    <input type="text" name="testimonial" placeholder="Enter your testimonial" required class="form-control mb-2" />
+    <input type="text" name="author" placeholder="Your name" required class="form-control mb-2" />
+    <button type="submit" class="btn btn-primary">Submit Testimonial</button>
+  </form>
 </section>
 
+<div class="bg">
 <section class="about-services text-center py-3">
   <h2>About Our Services</h2>
   <p>We offer comprehensive travel booking services, including flights, hotels, and car rentals, ensuring your travel planning is seamless and stress-free.</p>
 </section>
+</div>
