@@ -89,10 +89,10 @@ namespace Assignment1.Controllers
       var results = await query.ToListAsync();
       if (Request.Headers["X-Requested-With"].ToString().Contains("XMLHttpRequest"))
       {
-        return PartialView("_CarsSearchResults", results);
+        return PartialView("_CarSearchResults", results);
       }
 
-      return View("CarsSearchResults", results);
+      return View("CarSearchResults", results);
     }
 
     public async Task<IActionResult> SearchHotels(string location)
@@ -108,10 +108,10 @@ namespace Assignment1.Controllers
       var results = await query.ToListAsync();
       if (Request.Headers["X-Requested-With"].ToString().Contains("XMLHttpRequest"))
       {
-        return PartialView("_HotelsSearchResults", results);
+        return PartialView("_HotelSearchResults", results);
       }
 
-      return View("HotelsSearchResults", results);
+      return View("HotelSearchResults", results);
     }
 
 

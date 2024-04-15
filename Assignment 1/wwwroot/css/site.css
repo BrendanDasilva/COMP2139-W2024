@@ -179,3 +179,12 @@ label {
   background-color: lightgray;
   box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
 }
+
+.testimonials {
+  margin: 30px auto;
+  width: 100%;
+  max-width: 60%;
+  padding: 20px;
+  background-color: lightgray;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+}
