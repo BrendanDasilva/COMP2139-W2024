@@ -1,0 +1,223 @@
+2024-04-16 09:47:25.196 -04:00 [INF] User profile is available. Using 'C:\Users\brend\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2024-04-16 09:47:27.755 -04:00 [INF] Executed DbCommand (55ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [Identity].[AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2024-04-16 09:47:27.815 -04:00 [WRN] Role 75732827-7690-4327-9647-151aed4a4cbf validation failed: DuplicateRoleName.
+2024-04-16 09:47:27.823 -04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [Identity].[AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2024-04-16 09:47:27.827 -04:00 [WRN] Role 5050be0f-690d-4b5f-9505-a1d0b11b4bb1 validation failed: DuplicateRoleName.
+2024-04-16 09:47:27.829 -04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [Identity].[AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2024-04-16 09:47:27.832 -04:00 [WRN] Role 6b4c1869-09be-41d3-8275-803411abaf51 validation failed: DuplicateRoleName.
+2024-04-16 09:47:27.835 -04:00 [INF] Executed DbCommand (1ms) [Parameters=[@__normalizedName_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [a].[Id], [a].[ConcurrencyStamp], [a].[Name], [a].[NormalizedName]
+FROM [Identity].[AspNetRoles] AS [a]
+WHERE [a].[NormalizedName] = @__normalizedName_0
+2024-04-16 09:47:27.837 -04:00 [WRN] Role c6c61246-098a-4d64-a930-b8a9663e30bc validation failed: DuplicateRoleName.
+2024-04-16 09:47:27.855 -04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__normalizedEmail_0='?' (Size = 256)], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(2) [a].[Id], [a].[AccessFailedCount], [a].[ConcurrencyStamp], [a].[Email], [a].[EmailConfirmed], [a].[FirstName], [a].[FrequentFlyerNumber], [a].[HotelLoyaltyID], [a].[LastName], [a].[LockoutEnabled], [a].[LockoutEnd], [a].[NormalizedEmail], [a].[NormalizedUserName], [a].[PasswordHash], [a].[PhoneNumber], [a].[PhoneNumberConfirmed], [a].[ProfilePicture], [a].[SecurityStamp], [a].[TwoFactorEnabled], [a].[UserName], [a].[UsernameChangeLimit]
+FROM [Identity].[AspNetUsers] AS [a]
+WHERE [a].[NormalizedEmail] = @__normalizedEmail_0
+2024-04-16 09:47:28.248 -04:00 [INF] Now listening on: http://localhost:5086
+2024-04-16 09:47:28.251 -04:00 [INF] Application started. Press Ctrl+C to shut down.
+2024-04-16 09:47:28.252 -04:00 [INF] Hosting environment: Development
+2024-04-16 09:47:28.253 -04:00 [INF] Content root path: C:\Users\brend\Documents\GitHub\COMP2139-W2024\Assignment 1
+2024-04-16 09:47:29.901 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/ - null null
+2024-04-16 09:47:30.107 -04:00 [WRN] Failed to determine the https port for redirect.
+2024-04-16 09:47:30.162 -04:00 [INF] Request: /
+2024-04-16 09:47:30.167 -04:00 [INF] Executing endpoint 'Assignment1.Controllers.HomeController.Index (Assignment1)'
+2024-04-16 09:47:30.188 -04:00 [INF] Route matched with {action = "Index", controller = "Home", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller Assignment1.Controllers.HomeController (Assignment1).
+2024-04-16 09:47:30.299 -04:00 [INF] Executed DbCommand (4ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [f].[FlightId], [f].[Airline], [f].[ArrivalAirport], [f].[ArrivalTime], [f].[DepartureAirport], [f].[DepartureTime], [f].[Destination], [f].[Price]
+FROM [Identity].[Flights] AS [f]
+ORDER BY NEWID()
+2024-04-16 09:47:30.329 -04:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [h].[HotelId], [h].[Amenities], [h].[BookingId], [h].[IsAvailable], [h].[Location], [h].[Name], [h].[PricePerNight], [h].[ServiceType]
+FROM [Identity].[Hotels] AS [h]
+ORDER BY NEWID()
+2024-04-16 09:47:30.353 -04:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CarId], [c].[Brand], [c].[IsAvailable], [c].[Location], [c].[Model], [c].[PricePerDay], [c].[Year]
+FROM [Identity].[Cars] AS [c]
+ORDER BY NEWID()
+2024-04-16 09:47:30.375 -04:00 [INF] Executing ViewResult, running view Index.
+2024-04-16 09:47:30.557 -04:00 [INF] Executed ViewResult - view Index executed in 184.2383ms.
+2024-04-16 09:47:30.562 -04:00 [INF] Executed action Assignment1.Controllers.HomeController.Index (Assignment1) in 371.3291ms
+2024-04-16 09:47:30.566 -04:00 [INF] Executed endpoint 'Assignment1.Controllers.HomeController.Index (Assignment1)'
+2024-04-16 09:47:30.569 -04:00 [INF] Response: 200
+2024-04-16 09:47:30.612 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/css/site.css?v=7XsIwUFN7pw-33Fl2k-Nkef0dr0g7boO4jqQzeHF6ks - null null
+2024-04-16 09:47:30.612 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/Assignment1.styles.css?v=2Yhh_-9T8ZxVnTknnQ0FPV5T9Wjc_T9H2xUI9uLzoyA - null null
+2024-04-16 09:47:30.612 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/images/Paris.png - null null
+2024-04-16 09:47:30.615 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/images/ny.png - null null
+2024-04-16 09:47:30.623 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/images/tokyo.jpg - null null
+2024-04-16 09:47:30.625 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/ - 200 null text/html; charset=utf-8 735.697ms
+2024-04-16 09:47:30.629 -04:00 [INF] The file /css/site.css was not modified
+2024-04-16 09:47:30.636 -04:00 [INF] Sending file. Request path: '/Assignment1.styles.css'. Physical path: 'C:\Users\brend\Documents\GitHub\COMP2139-W2024\Assignment 1\obj\Debug\net8.0\scopedcss\bundle\Assignment1.styles.css'
+2024-04-16 09:47:30.640 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/css/site.css?v=7XsIwUFN7pw-33Fl2k-Nkef0dr0g7boO4jqQzeHF6ks - 304 null text/css 28.6703ms
+2024-04-16 09:47:30.642 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/Assignment1.styles.css?v=2Yhh_-9T8ZxVnTknnQ0FPV5T9Wjc_T9H2xUI9uLzoyA - 200 1055 text/css 30.0631ms
+2024-04-16 09:47:30.653 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/lib/bootstrap/dist/js/bootstrap.bundle.min.js - null null
+2024-04-16 09:47:30.657 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/lib/jquery/dist/jquery.min.js - null null
+2024-04-16 09:47:30.657 -04:00 [INF] Sending file. Request path: '/images/ny.png'. Physical path: 'C:\Users\brend\Documents\GitHub\COMP2139-W2024\Assignment 1\wwwroot\images\ny.png'
+2024-04-16 09:47:30.637 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/lib/bootstrap/dist/css/bootstrap.min.css - null null
+2024-04-16 09:47:30.657 -04:00 [INF] Sending file. Request path: '/images/Paris.png'. Physical path: 'C:\Users\brend\Documents\GitHub\COMP2139-W2024\Assignment 1\wwwroot\images\paris.png'
+2024-04-16 09:47:30.658 -04:00 [INF] Sending file. Request path: '/images/tokyo.jpg'. Physical path: 'C:\Users\brend\Documents\GitHub\COMP2139-W2024\Assignment 1\wwwroot\images\tokyo.jpg'
+2024-04-16 09:47:30.664 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/images/ny.png - 200 300308 image/png 48.6696ms
+2024-04-16 09:47:30.666 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/images/Paris.png - 200 368656 image/png 54.912ms
+2024-04-16 09:47:30.667 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/images/tokyo.jpg - 200 628453 image/jpeg 45.439ms
+2024-04-16 09:47:30.670 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-16 09:47:30.673 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/js/site.js?v=PvcY-nqkLVjSnO6V_9ZnQKNtEBZ6fs3PSKjRHoLyrBI - null null
+2024-04-16 09:47:30.676 -04:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/css/bootstrap.min.css'. Physical path: 'C:\Users\brend\Documents\GitHub\COMP2139-W2024\Assignment 1\wwwroot\lib\bootstrap\dist\css\bootstrap.min.css'
+2024-04-16 09:47:30.676 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/_vs/browserLink - null null
+2024-04-16 09:47:30.684 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/_framework/aspnetcore-browser-refresh.js - 200 13758 application/javascript; charset=utf-8 13.9632ms
+2024-04-16 09:47:30.685 -04:00 [INF] The file /js/site.js was not modified
+2024-04-16 09:47:30.686 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/lib/bootstrap/dist/css/bootstrap.min.css - 200 162720 text/css 48.1954ms
+2024-04-16 09:47:30.692 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/js/site.js?v=PvcY-nqkLVjSnO6V_9ZnQKNtEBZ6fs3PSKjRHoLyrBI - 304 null text/javascript 19.1746ms
+2024-04-16 09:47:30.705 -04:00 [INF] Sending file. Request path: '/lib/bootstrap/dist/js/bootstrap.bundle.min.js'. Physical path: 'C:\Users\brend\Documents\GitHub\COMP2139-W2024\Assignment 1\wwwroot\lib\bootstrap\dist\js\bootstrap.bundle.min.js'
+2024-04-16 09:47:30.716 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/images/wallpaper.jpg - null null
+2024-04-16 09:47:30.717 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/lib/bootstrap/dist/js/bootstrap.bundle.min.js - 200 78468 text/javascript 64.4483ms
+2024-04-16 09:47:30.768 -04:00 [INF] Sending file. Request path: '/images/wallpaper.jpg'. Physical path: 'C:\Users\brend\Documents\GitHub\COMP2139-W2024\Assignment 1\wwwroot\images\wallpaper.jpg'
+2024-04-16 09:47:30.773 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/images/wallpaper.jpg - 200 81662 image/jpeg 56.9597ms
+2024-04-16 09:47:30.779 -04:00 [INF] Sending file. Request path: '/lib/jquery/dist/jquery.min.js'. Physical path: 'C:\Users\brend\Documents\GitHub\COMP2139-W2024\Assignment 1\wwwroot\lib\jquery\dist\jquery.min.js'
+2024-04-16 09:47:30.783 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/lib/jquery/dist/jquery.min.js - 200 89501 text/javascript 126.5036ms
+2024-04-16 09:47:31.143 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/_vs/browserLink - 200 null text/javascript; charset=UTF-8 466.6299ms
+2024-04-16 09:47:37.694 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/FlightBooking - null null
+2024-04-16 09:47:37.705 -04:00 [INF] Request: /FlightBooking
+2024-04-16 09:47:37.707 -04:00 [INF] Executing endpoint 'Assignment1.Controllers.FlightBookingController.Index (Assignment1)'
+2024-04-16 09:47:37.717 -04:00 [INF] Route matched with {action = "Index", controller = "FlightBooking", page = "", area = ""}. Executing controller action with signature Microsoft.AspNetCore.Mvc.IActionResult Index(System.String) on controller Assignment1.Controllers.FlightBookingController (Assignment1).
+2024-04-16 09:47:37.770 -04:00 [INF] Executed DbCommand (2ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[FlightId], [f].[Airline], [f].[ArrivalAirport], [f].[ArrivalTime], [f].[DepartureAirport], [f].[DepartureTime], [f].[Destination], [f].[Price]
+FROM [Identity].[Flights] AS [f]
+ORDER BY [f].[Airline]
+2024-04-16 09:47:37.777 -04:00 [INF] Executing ViewResult, running view Index.
+2024-04-16 09:47:37.799 -04:00 [INF] Executed ViewResult - view Index executed in 23.517ms.
+2024-04-16 09:47:37.803 -04:00 [INF] Executed action Assignment1.Controllers.FlightBookingController.Index (Assignment1) in 83.2196ms
+2024-04-16 09:47:37.805 -04:00 [INF] Executed endpoint 'Assignment1.Controllers.FlightBookingController.Index (Assignment1)'
+2024-04-16 09:47:37.806 -04:00 [INF] Response: 200
+2024-04-16 09:47:37.809 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/FlightBooking - 200 null text/html; charset=utf-8 114.8619ms
+2024-04-16 09:47:37.828 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/Assignment1.styles.css?v=2Yhh_-9T8ZxVnTknnQ0FPV5T9Wjc_T9H2xUI9uLzoyA - null null
+2024-04-16 09:47:37.829 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-16 09:47:37.829 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/_vs/browserLink - null null
+2024-04-16 09:47:37.833 -04:00 [INF] The file /Assignment1.styles.css was not modified
+2024-04-16 09:47:37.835 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/_framework/aspnetcore-browser-refresh.js - 200 13758 application/javascript; charset=utf-8 6.419ms
+2024-04-16 09:47:37.838 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/Assignment1.styles.css?v=2Yhh_-9T8ZxVnTknnQ0FPV5T9Wjc_T9H2xUI9uLzoyA - 304 null text/css 10.4444ms
+2024-04-16 09:47:37.857 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/_vs/browserLink - 200 null text/javascript; charset=UTF-8 28.264ms
+2024-04-16 09:47:38.457 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/HotelBookings - null null
+2024-04-16 09:47:38.465 -04:00 [INF] Request: /HotelBookings
+2024-04-16 09:47:38.466 -04:00 [INF] Executing endpoint 'Assignment1.Controllers.HotelBookingsController.Index (Assignment1)'
+2024-04-16 09:47:38.471 -04:00 [INF] Route matched with {action = "Index", controller = "HotelBookings", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller Assignment1.Controllers.HotelBookingsController (Assignment1).
+2024-04-16 09:47:38.493 -04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [h].[HotelId], [h].[Amenities], [h].[BookingId], [h].[IsAvailable], [h].[Location], [h].[Name], [h].[PricePerNight], [h].[ServiceType]
+FROM [Identity].[Hotels] AS [h]
+ORDER BY [h].[Name]
+2024-04-16 09:47:38.501 -04:00 [INF] Executing ViewResult, running view Index.
+2024-04-16 09:47:38.521 -04:00 [INF] Executed ViewResult - view Index executed in 20.7379ms.
+2024-04-16 09:47:38.523 -04:00 [INF] Executed action Assignment1.Controllers.HotelBookingsController.Index (Assignment1) in 50.0098ms
+2024-04-16 09:47:38.524 -04:00 [INF] Executed endpoint 'Assignment1.Controllers.HotelBookingsController.Index (Assignment1)'
+2024-04-16 09:47:38.526 -04:00 [INF] Response: 200
+2024-04-16 09:47:38.527 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/HotelBookings - 200 null text/html; charset=utf-8 70.3149ms
+2024-04-16 09:47:38.543 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/_vs/browserLink - null null
+2024-04-16 09:47:38.543 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-16 09:47:38.554 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/_framework/aspnetcore-browser-refresh.js - 200 13758 application/javascript; charset=utf-8 10.9685ms
+2024-04-16 09:47:38.555 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/_vs/browserLink - 200 null text/javascript; charset=UTF-8 12.1737ms
+2024-04-16 09:47:39.000 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/CarRentals - null null
+2024-04-16 09:47:39.005 -04:00 [INF] Request: /CarRentals
+2024-04-16 09:47:39.007 -04:00 [INF] Executing endpoint 'Assignment1.Controllers.CarRentalsController.Index (Assignment1)'
+2024-04-16 09:47:39.015 -04:00 [INF] Route matched with {action = "Index", controller = "CarRentals", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index(System.String) on controller Assignment1.Controllers.CarRentalsController (Assignment1).
+2024-04-16 09:47:39.027 -04:00 [INF] Executed DbCommand (3ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT [c].[CarId], [c].[Brand], [c].[IsAvailable], [c].[Location], [c].[Model], [c].[PricePerDay], [c].[Year]
+FROM [Identity].[Cars] AS [c]
+WHERE [c].[IsAvailable] = CAST(1 AS bit)
+ORDER BY [c].[Brand]
+2024-04-16 09:47:39.032 -04:00 [INF] Executing ViewResult, running view Index.
+2024-04-16 09:47:39.044 -04:00 [INF] Executed ViewResult - view Index executed in 13.0155ms.
+2024-04-16 09:47:39.047 -04:00 [INF] Executed action Assignment1.Controllers.CarRentalsController.Index (Assignment1) in 29.407ms
+2024-04-16 09:47:39.048 -04:00 [INF] Executed endpoint 'Assignment1.Controllers.CarRentalsController.Index (Assignment1)'
+2024-04-16 09:47:39.049 -04:00 [INF] Response: 200
+2024-04-16 09:47:39.050 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/CarRentals - 200 null text/html; charset=utf-8 50.6656ms
+2024-04-16 09:47:39.064 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/_vs/browserLink - null null
+2024-04-16 09:47:39.068 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-16 09:47:39.071 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/_vs/browserLink - 200 null text/javascript; charset=UTF-8 7.3901ms
+2024-04-16 09:47:39.072 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/_framework/aspnetcore-browser-refresh.js - 200 13758 application/javascript; charset=utf-8 4.7028ms
+2024-04-16 09:47:39.801 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/ - null null
+2024-04-16 09:47:39.807 -04:00 [INF] Request: /
+2024-04-16 09:47:39.808 -04:00 [INF] Executing endpoint 'Assignment1.Controllers.HomeController.Index (Assignment1)'
+2024-04-16 09:47:39.809 -04:00 [INF] Route matched with {action = "Index", controller = "Home", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Index() on controller Assignment1.Controllers.HomeController (Assignment1).
+2024-04-16 09:47:39.814 -04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [f].[FlightId], [f].[Airline], [f].[ArrivalAirport], [f].[ArrivalTime], [f].[DepartureAirport], [f].[DepartureTime], [f].[Destination], [f].[Price]
+FROM [Identity].[Flights] AS [f]
+ORDER BY NEWID()
+2024-04-16 09:47:39.817 -04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [h].[HotelId], [h].[Amenities], [h].[BookingId], [h].[IsAvailable], [h].[Location], [h].[Name], [h].[PricePerNight], [h].[ServiceType]
+FROM [Identity].[Hotels] AS [h]
+ORDER BY NEWID()
+2024-04-16 09:47:39.819 -04:00 [INF] Executed DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT TOP(1) [c].[CarId], [c].[Brand], [c].[IsAvailable], [c].[Location], [c].[Model], [c].[PricePerDay], [c].[Year]
+FROM [Identity].[Cars] AS [c]
+ORDER BY NEWID()
+2024-04-16 09:47:39.822 -04:00 [INF] Executing ViewResult, running view Index.
+2024-04-16 09:47:39.824 -04:00 [INF] Executed ViewResult - view Index executed in 2.6235ms.
+2024-04-16 09:47:39.826 -04:00 [INF] Executed action Assignment1.Controllers.HomeController.Index (Assignment1) in 15.1944ms
+2024-04-16 09:47:39.827 -04:00 [INF] Executed endpoint 'Assignment1.Controllers.HomeController.Index (Assignment1)'
+2024-04-16 09:47:39.829 -04:00 [INF] Response: 200
+2024-04-16 09:47:39.830 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/ - 200 null text/html; charset=utf-8 28.7996ms
+2024-04-16 09:47:39.849 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/Assignment1.styles.css?v=2Yhh_-9T8ZxVnTknnQ0FPV5T9Wjc_T9H2xUI9uLzoyA - null null
+2024-04-16 09:47:39.854 -04:00 [INF] The file /Assignment1.styles.css was not modified
+2024-04-16 09:47:39.855 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-16 09:47:39.855 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/Assignment1.styles.css?v=2Yhh_-9T8ZxVnTknnQ0FPV5T9Wjc_T9H2xUI9uLzoyA - 304 null text/css 6.475ms
+2024-04-16 09:47:39.856 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/_vs/browserLink - null null
+2024-04-16 09:47:39.859 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/_framework/aspnetcore-browser-refresh.js - 200 13758 application/javascript; charset=utf-8 3.6334ms
+2024-04-16 09:47:39.870 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/_vs/browserLink - 200 null text/javascript; charset=UTF-8 13.6684ms
+2024-04-16 09:47:42.973 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/Home/Search?destination=New%20York&departureDate=&returnDate= - null null
+2024-04-16 09:47:42.977 -04:00 [INF] Request: /Home/Search
+2024-04-16 09:47:42.978 -04:00 [INF] Executing endpoint 'Assignment1.Controllers.HomeController.Search (Assignment1)'
+2024-04-16 09:47:42.984 -04:00 [INF] Route matched with {action = "Search", controller = "Home", page = "", area = ""}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Search(System.String, System.Nullable`1[System.DateTime], System.Nullable`1[System.DateTime]) on controller Assignment1.Controllers.HomeController (Assignment1).
+2024-04-16 09:47:43.008 -04:00 [INF] Executed DbCommand (3ms) [Parameters=[@__destination_0_contains='?' (Size = 100)], CommandType='"Text"', CommandTimeout='30']
+SELECT [f].[FlightId], [f].[Airline], [f].[ArrivalAirport], [f].[ArrivalTime], [f].[DepartureAirport], [f].[DepartureTime], [f].[Destination], [f].[Price]
+FROM [Identity].[Flights] AS [f]
+WHERE [f].[Destination] LIKE @__destination_0_contains ESCAPE N'\'
+2024-04-16 09:47:43.014 -04:00 [INF] Executing PartialViewResult, running view _SearchResults.
+2024-04-16 09:47:43.021 -04:00 [INF] Executed PartialViewResult - view _SearchResults executed in 7.6324ms.
+2024-04-16 09:47:43.023 -04:00 [INF] Executed action Assignment1.Controllers.HomeController.Search (Assignment1) in 35.9875ms
+2024-04-16 09:47:43.025 -04:00 [INF] Executed endpoint 'Assignment1.Controllers.HomeController.Search (Assignment1)'
+2024-04-16 09:47:43.026 -04:00 [INF] Response: 200
+2024-04-16 09:47:43.027 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/Home/Search?destination=New%20York&departureDate=&returnDate= - 200 null text/html; charset=utf-8 54.3193ms
+2024-04-16 09:47:50.202 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/Identity/Account/Login - null null
+2024-04-16 09:47:50.218 -04:00 [INF] Request: /Identity/Account/Login
+2024-04-16 09:47:50.220 -04:00 [INF] Executing endpoint '/Account/Login'
+2024-04-16 09:47:50.234 -04:00 [INF] Route matched with {page = "/Account/Login", area = "Identity", action = "", controller = ""}. Executing page /Account/Login
+2024-04-16 09:47:50.247 -04:00 [INF] Executing handler method Assignment1.Areas.Identity.Pages.Account.LoginModel.OnGetAsync - ModelState is "Valid"
+2024-04-16 09:47:50.253 -04:00 [INF] AuthenticationScheme: Identity.External signed out.
+2024-04-16 09:47:50.256 -04:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-04-16 09:47:50.260 -04:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-04-16 09:47:50.261 -04:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-04-16 09:47:50.310 -04:00 [INF] Executed page /Account/Login in 74.194ms
+2024-04-16 09:47:50.313 -04:00 [INF] Executed endpoint '/Account/Login'
+2024-04-16 09:47:50.314 -04:00 [INF] Response: 200
+2024-04-16 09:47:50.315 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/Identity/Account/Login - 200 null text/html; charset=utf-8 113.4783ms
+2024-04-16 09:47:50.331 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/Assignment1.styles.css?v=2Yhh_-9T8ZxVnTknnQ0FPV5T9Wjc_T9H2xUI9uLzoyA - null null
+2024-04-16 09:47:50.335 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-16 09:47:50.335 -04:00 [INF] The file /Assignment1.styles.css was not modified
+2024-04-16 09:47:50.336 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/_vs/browserLink - null null
+2024-04-16 09:47:50.338 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/_framework/aspnetcore-browser-refresh.js - 200 13758 application/javascript; charset=utf-8 3.5392ms
+2024-04-16 09:47:50.340 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/Assignment1.styles.css?v=2Yhh_-9T8ZxVnTknnQ0FPV5T9Wjc_T9H2xUI9uLzoyA - 304 null text/css 8.4768ms
+2024-04-16 09:47:50.347 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/_vs/browserLink - 200 null text/javascript; charset=UTF-8 11.0482ms
+2024-04-16 09:47:51.415 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/Identity/Account/Register - null null
+2024-04-16 09:47:51.423 -04:00 [INF] Request: /Identity/Account/Register
+2024-04-16 09:47:51.425 -04:00 [INF] Executing endpoint '/Account/Register'
+2024-04-16 09:47:51.433 -04:00 [INF] Route matched with {page = "/Account/Register", area = "Identity", action = "", controller = ""}. Executing page /Account/Register
+2024-04-16 09:47:51.436 -04:00 [INF] Executing handler method Assignment1.Areas.Identity.Pages.Account.RegisterModel.OnGetAsync - ModelState is "Valid"
+2024-04-16 09:47:51.437 -04:00 [INF] Executed handler method OnGetAsync, returned result .
+2024-04-16 09:47:51.438 -04:00 [INF] Executing an implicit handler method - ModelState is "Valid"
+2024-04-16 09:47:51.439 -04:00 [INF] Executed an implicit handler method, returned result Microsoft.AspNetCore.Mvc.RazorPages.PageResult.
+2024-04-16 09:47:51.465 -04:00 [INF] Executed page /Account/Register in 30.623ms
+2024-04-16 09:47:51.468 -04:00 [INF] Executed endpoint '/Account/Register'
+2024-04-16 09:47:51.469 -04:00 [INF] Response: 200
+2024-04-16 09:47:51.470 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/Identity/Account/Register - 200 null text/html; charset=utf-8 54.5894ms
+2024-04-16 09:47:51.486 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/_vs/browserLink - null null
+2024-04-16 09:47:51.487 -04:00 [INF] Request starting HTTP/1.1 GET http://localhost:5086/_framework/aspnetcore-browser-refresh.js - null null
+2024-04-16 09:47:51.494 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/_framework/aspnetcore-browser-refresh.js - 200 13758 application/javascript; charset=utf-8 6.7149ms
+2024-04-16 09:47:51.495 -04:00 [INF] Request finished HTTP/1.1 GET http://localhost:5086/_vs/browserLink - 200 null text/javascript; charset=UTF-8 8.1361ms
